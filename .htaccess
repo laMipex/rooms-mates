@@ -1,0 +1,6 @@
+<Files "admin.php">
+    AuthType Basic
+    AuthName "Restricted Access"
+    AuthUserFile "C:\xampp\htdocs\roommates\secret\.htpasswd"
+    Require valid-user
+</Files>

@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Patua+One&display=swap');
+
+* {
+    font-family: "Patua One", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.txt:link {
+    color: blue;
+}
+
+.txt:hover {
+    color: midnightblue;
+}
+
+.txt:active {
+    text-decoration: underline;
+}
+
+.txt:visited {
+    text-decoration: underline;
+
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: white
+}
+
+::-webkit-scrollbar-thumb {
+    background: #353535;
+    border-radius: 16px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+@keyframes content_reveal {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+nav {
+    border-bottom: 1px solid black;
+}
+
+.tcText>h2,
+p {
+    padding-top: 5px;
+    padding-right: 10px;
+}
+
+h2 {
+    color: blue;
+}
+
+.my-4 {
+    text-align: center;
+}
+
+#message {
+    position: absolute;
+    columns: #000;
+    font-size: 15px;
+    display: none;
+}

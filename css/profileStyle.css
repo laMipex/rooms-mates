@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Patua+One&display=swap');
+
+* {
+    font-family: "Patua One", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.img-fluid{
+    height: 400px;
+    width: 400px;
+
+}
+
+.person-photo {
+    width: 400px;
+    height: 500px;
+    object-fit: cover;
+    margin-right: 20px;
+    margin-left: 150px;
+    margin-top: 50px;
+    border-radius: 12px;
+}
+
+.profile-info {
+    margin-left: 150px;
+    font-size: 25px;
+    margin-top: 50px;
+}
+
+.profile-header {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
