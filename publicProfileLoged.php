@@ -135,7 +135,7 @@ if (isset($_SESSION['userID'])) {
                         echo "<p class='pC2'>{$user['down']}<i class='bi bi-hand-thumbs-down'></i></p>";
                         echo "<br><br>";
                         echo "<form action='message.php' method='get' class='card-footer'>";
-                        echo "<button type='submit' class='btn btn-primary'>Send Message</button>";
+                        echo "<button type='submit' name='submit' value='{$user['email']}' class='btn btn-primary'>Send Message</button>";
                         echo "</form>";
                         // Add more profile details as needed
                     } else {

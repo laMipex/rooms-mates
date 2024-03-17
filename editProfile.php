@@ -1,10 +1,16 @@
 <?php
-session_start(); // Start or resume the session at the beginning of the script
 
-// Assuming $_SESSION['userID'] is set during login
+session_start(); // Start the session
+include_once 'db.php'; // Include your database configuration file
+
+
+// Check if the user is logged in
 if (isset($_SESSION['userID'])) {
+    // User is logged in
     $pdo = new PDO('mysql:host=localhost;dbname=roommates', 'root', '');
-    $query = $pdo->prepare("SELECT photo FROM user WHERE userID = :userID");
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $query = $pdo->prepare("SELECT * FROM user WHERE userID = :userID");
     $query->bindParam(':userID', $_SESSION['userID']);
     $query->execute();
     $user = $query->fetch(PDO::FETCH_ASSOC);
@@ -14,9 +20,11 @@ if (isset($_SESSION['userID'])) {
     $isLoggedIn = true;
 } else {
     $isLoggedIn = false;
-    $profilePhoto = 'imgs/person.jpg'; // Path to default photo for logged out users
+    $profilePhoto = 'imgs/person.jpg';
+    $profilePhoto = $defaultPhoto;
+    header("Location: indexLoged.php");
+    exit();
 }
-
 
 // Povezivanje sa bazom podataka
 $pdo = new PDO('mysql:host=localhost;dbname=roommates', 'root', '');
@@ -40,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $budget = $_POST['budget'];
 
     // Ovde dodajte ID korisnika koji se a탑urira, mo탑da kroz sesiju ili direktno u formi
-    $userId = $_SESSION['userID']; // Pretpostavimo da je 1 ID korisnika koji se a탑urira
+    $userId = $_SESSION['userID'];
 
     // A탑uriranje podataka u bazi
     $sql = "UPDATE user SET u_fname = :firstName, u_lname = :lastName, email = :email, city = :city,photo = :photo, age = :age, bio = :bio, budget = :budget WHERE userID = :userID";
@@ -94,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav mx-auto mb-2 mb-ls-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+                    <a class="nav-link active" aria-current="page" href="indexLoged.php">Home</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -102,10 +110,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         Cities
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="noviSad.php">Novi Sad</a></li>
-                        <li><a class="dropdown-item" href="subotica.php">Subotica</a></li>
-                        <li><a class="dropdown-item" href="beograd.php">Belgrade</a></li>
-                        <li><a class="dropdown-item" href="nis.php">Nis</a></li>
+                        <li><a class="dropdown-item" href="#">Novi Sad</a></li>
+                        <li><a class="dropdown-item" href="#">Subotica</a></li>
+                        <li><a class="dropdown-item" href="#">Belgrade</a></li>
+                        <li><a class="dropdown-item" href="#">Nis</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -128,6 +136,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <button class="btn btn-outline-primary" type="submit">Log In</button>
                 </form>
             <?php endif; ?>
+            </nav>
+        </div>
+    </div>
 </nav>
 <div class="container">
     <h1 class="mt-5 mb-5">Edit profile</h1>
@@ -140,20 +151,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <form class="col-md-6 col-sm-6 col-xxs-4  mt-4 my-5" name="form" method="POST" action="editProfile.php">
                 <div class="mb-3">
                     <label for="fname" class="form-label ">Change first name:</label>
-                    <input type="text" class="form-control" id="fname" name="u_fname">
+                    <input type="text" class="form-control" id="fname" name="u_fname" value="<?php echo htmlspecialchars($user['u_fname']); ?>">
                 </div>
                 <div class="mb-3">
                     <label for="name" class="form-label">Change last name:</label>
-                    <input type="text" class="form-control" id="name" name="u_lname">
+                    <input type="text" class="form-control" id="name" name="u_lname" value="<?php echo htmlspecialchars($user['u_lname']); ?>">
                 </div>
                 <div class="mb-3">
                     <label for="Email" class="form-label">Change Email Address:</label>
-                    <input type="email" class="form-control" id="Email" name="email" aria-describedby="emailHelp">
+                    <input type="email" class="form-control" id="Email" name="email" aria-describedby="emailHelp" value="<?php echo htmlspecialchars($user['email']); ?>">
 
                 </div>
                 <div class="mb-3">
                     <label for="city" class="form-label">Change city:</label>
-                    <input type="text" class="form-control" id="city" name="city">
+                    <input type="text" class="form-control" id="city" name="city" value="<?php echo htmlspecialchars($user['city']); ?>">
                 </div>
                 <div class="mb-3">
                     <label for="photo" class="form-label">Change photo:</label><br><br>
@@ -161,26 +172,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="mb-3">
                     <label for="age" class="form-label mt-3">Change age:</label>
-                    <input type="text" class="form-control" id="age" name="age">
+                    <input type="text" class="form-control" id="age" name="age" value="<?php echo htmlspecialchars($user['age']); ?>">
                 </div>
                 <div class="mb-3">
                     <label for="bio" class="form-label">Change bio:</label>
-                    <input type="text" class="form-control" id="bio" name="bio">
+                    <input type="text" class="form-control" id="bio" name="bio" value="<?php echo htmlspecialchars($user['bio']); ?>">
                 </div>
                 <div class="mb-3">
                     <label for="budget" class="form-label">Change budget:</label>
-                    <input type="text" class="form-control" id="budget" name="budget">
+                    <input type="text" class="form-control" id="budget" name="budget" value="<?php echo htmlspecialchars($user['budget']); ?>">
                 </div>
-                <div class="mb-3">
-                    <label for="gender" class="form-label">Change gender:</label>
-                    <input type="text" class="form-control" id="gender" name="gender">
-                </div>
-
                 <div class="mb-3 text-center mt-5">
                     <button type="submit" class="btn btn-primary" style="width: 100px">Apply</button>
                 </div>
-
-
             </form>
         </div>
     </div>
@@ -191,9 +195,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class="foot container-fluid">
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
         <div class="col-md-4 d-flex align-items-center">
-            <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-                <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"/></svg>
-            </a>
             <span class="mb-3 mb-md-0 text-muted">&copy; 2024 CtrlAltDefeat</span>
         </div>
 

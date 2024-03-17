@@ -135,7 +135,9 @@ if (isset($_SESSION['userID'])) {
         <div class="box">
             <p class="pText">Looking for Roomies?</p>
             <div class="btnF">
-                <button type="button" class="btn btn-primary btn-lg">Find roomies</button>
+                <form action="login.php">
+                    <button type="submit" class="btn btn-primary btn-lg">Find roomies</button>
+                </form>
             </div>
 
         </div>

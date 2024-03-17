@@ -85,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav mx-auto mb-2 mb-ls-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    <a class="nav-link active" aria-current="page" href="indexLoged.php">Home</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -93,9 +93,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="noviSad.php">Novi Sad</a></li>
-                        <li><a class="dropdown-item" href="#">Subotica</a></li>
-                        <li><a class="dropdown-item" href="#">Belgrade</a></li>
-                        <li><a class="dropdown-item" href="#">Nis</a></li>
+                        <li><a class="dropdown-item" href="subotica.php">Subotica</a></li>
+                        <li><a class="dropdown-item" href="beograd.php">Belgrade</a></li>
+                        <li><a class="dropdown-item" href="nis.php">Nis</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
